@@ -95,11 +95,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : NavBarPage(
                   initialPage: 'PopularVideos',
                   page: PopularVideosWidget(
-                    data: params.getParam('data', ParamType.String),
-                    videoTitleParam:
-                        params.getParam('videoTitleParam', ParamType.JSON),
+                    title: params.getParam('title', ParamType.String),
                     channelTitle:
                         params.getParam('channelTitle', ParamType.String),
+                    videoId: params.getParam('videoId', ParamType.String),
+                    standardThumbnail:
+                        params.getParam('standardThumbnail', ParamType.String),
                   ),
                 ),
         ),
@@ -154,9 +155,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ),
         ),
         FFRoute(
-          name: 'Playlist',
-          path: '/playlist',
-          builder: (context, params) => PlaylistWidget(),
+          name: 'SingleVideoPopular',
+          path: '/singleVideoPopular',
+          builder: (context, params) => SingleVideoPopularWidget(
+            standardThumbnail:
+                params.getParam('standardThumbnail', ParamType.String),
+            title: params.getParam('title', ParamType.String),
+            videoId: params.getParam('videoId', ParamType.String),
+            channelTitle: params.getParam('channelTitle', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'login',
@@ -179,7 +186,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ForgotPasswordWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
-      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {

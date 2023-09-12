@@ -59,7 +59,7 @@ class GetRandomCuratedContentCall {
     return ApiManager.instance.makeApiCall(
       callName: 'GetRandomCuratedContent',
       apiUrl:
-          'https://us-central1-channellab-11ee7.cloudfunctions.net/getRandomCuratedContent',
+          'https://us-central1-channellab-11ee7.cloudfunctions.net/getRandomCuratedContentV2',
       callType: ApiCallType.GET,
       headers: {
         'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ class UpdateChannelVisibilityCall {
     String? uid = '',
     String? channelid = '',
   }) {
-    final body = '''
+    final ffApiRequestBody = '''
 {
   "uid": "${uid}",
   "channelid": "${channelid}"
@@ -101,7 +101,7 @@ class UpdateChannelVisibilityCall {
         'Content-Type': 'application/json',
       },
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -160,6 +160,26 @@ class GetVideosByChannelCall {
         r'''$''',
         true,
       );
+}
+
+class IsUserSubscribedCall {
+  static Future<ApiCallResponse> call({
+    String? uid = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'IsUserSubscribed',
+      apiUrl: 'https://api.revenuecat.com/v1/subscribers/${uid}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer sk_dCcDHhuuOLgJPzcgTwQINvmhJDxVt',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
 }
 
 class ApiPagingParams {

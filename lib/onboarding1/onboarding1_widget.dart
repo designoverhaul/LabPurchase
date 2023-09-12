@@ -183,7 +183,7 @@ class _Onboarding1WidgetState extends State<Onboarding1Widget>
           children: [
             Expanded(
               child: Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.00, 0.00),
                 child: Container(
                   width: MediaQuery.sizeOf(context).width * 1.0,
                   height: MediaQuery.sizeOf(context).height * 1.0,
@@ -221,7 +221,7 @@ class _Onboarding1WidgetState extends State<Onboarding1Widget>
                                     children: [
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.00, 0.00),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -232,8 +232,8 @@ class _Onboarding1WidgetState extends State<Onboarding1Widget>
                                           ),
                                           decoration: BoxDecoration(),
                                           child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
@@ -421,7 +421,7 @@ class _Onboarding1WidgetState extends State<Onboarding1Widget>
                                                       Align(
                                                         alignment:
                                                             AlignmentDirectional(
-                                                                0.0, 0.0),
+                                                                0.00, 0.00),
                                                         child: Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
@@ -449,7 +449,7 @@ class _Onboarding1WidgetState extends State<Onboarding1Widget>
                                                         child: Align(
                                                           alignment:
                                                               AlignmentDirectional(
-                                                                  -1.0, 0.0),
+                                                                  -1.00, 0.00),
                                                           child: Padding(
                                                             padding:
                                                                 EdgeInsetsDirectional
@@ -575,7 +575,7 @@ class _Onboarding1WidgetState extends State<Onboarding1Widget>
                                             children: [
                                               Align(
                                                 alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                    0.00, 0.00),
                                                 child: Text(
                                                   '(Coming soon)',
                                                   style: FlutterFlowTheme.of(
@@ -771,7 +771,7 @@ class _Onboarding1WidgetState extends State<Onboarding1Widget>
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.0, 1.0),
+                              alignment: AlignmentDirectional(0.00, 1.00),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 10.0),

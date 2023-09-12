@@ -70,7 +70,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
-                  alignment: AlignmentDirectional(0.0, -1.0),
+                  alignment: AlignmentDirectional(0.00, -1.00),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -92,7 +92,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                 topRight: Radius.circular(0.0),
                               ),
                             ),
-                            alignment: AlignmentDirectional(-1.0, 0.0),
+                            alignment: AlignmentDirectional(-1.00, 0.00),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   20.0, 22.0, 0.0, 0.0),
@@ -108,7 +108,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: AlignmentDirectional(0.00, 0.00),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 32.0, 32.0, 32.0, 32.0),
@@ -434,7 +434,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
                                 // You will have to add an action on this rich text to go to your login page.
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.00, 0.00),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 6.0),
@@ -452,6 +452,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         context.goNamed('Channels');
                                       },
                                       child: RichText(
+                                        textScaleFactor: MediaQuery.of(context)
+                                            .textScaleFactor,
                                         text: TextSpan(
                                           children: [
                                             TextSpan(
@@ -468,7 +470,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.00, 0.00),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 8.0),
@@ -534,6 +536,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                       context.goNamed('login');
                                     },
                                     child: RichText(
+                                      textScaleFactor: MediaQuery.of(context)
+                                          .textScaleFactor,
                                       text: TextSpan(
                                         children: [
                                           TextSpan(

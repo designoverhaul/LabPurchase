@@ -125,7 +125,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(1.0, 0.0),
+                        alignment: AlignmentDirectional(1.00, 0.00),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 8.0, 0.0, 0.0),
@@ -138,28 +138,48 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                   logFirebaseEvent(
                                       'PAY_WALL_COMP_SUBSCRIBE_NOW_BTN_ON_TAP');
                                   logFirebaseEvent('Button_revenue_cat');
-                                  _model.didPurchaseMonth = await revenue_cat
-                                      .purchasePackage(revenue_cat.offerings!
-                                          .current!.monthly!.identifier);
-                                  if (_model.didPurchaseMonth!) {
-                                    logFirebaseEvent('Button_navigate_back');
-                                    context.safePop();
-                                    logFirebaseEvent('Button_navigate_to');
-
-                                    context.pushNamed('Channels');
-                                  } else {
+                                  _model.didPurchase = await revenue_cat
+                                      .purchasePackage(valueOrDefault<String>(
+                                    revenue_cat.offerings!.current!
+                                        .getPackage('Monthly')!
+                                        .identifier,
+                                    'Monthly',
+                                  ));
+                                  if (_model.didPurchase!) {
+                                    logFirebaseEvent(
+                                        'Button_close_dialog,_drawer,_etc');
+                                    Navigator.pop(context);
                                     logFirebaseEvent('Button_show_snack_bar');
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Unable to purchase',
+                                          'Purchase Success',
                                           style: TextStyle(
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
                                           ),
                                         ),
                                         duration: Duration(milliseconds: 4000),
-                                        backgroundColor: Color(0xFFE83B3B),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      ),
+                                    );
+                                  } else {
+                                    logFirebaseEvent('Button_show_snack_bar');
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Purchase Fail',
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
                                       ),
                                     );
                                   }
@@ -283,7 +303,7 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                 color: Color(0x2C4B39EF),
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.00, 0.00),
                               child: Text(
                                 'Save 16%',
                                 style: FlutterFlowTheme.of(context)
@@ -310,8 +330,8 @@ class _PayWallWidgetState extends State<PayWallWidget> {
                                     .purchasePackage(revenue_cat.offerings!
                                         .current!.monthly!.identifier);
                                 if (_model.didPurchaseYear!) {
-                                  logFirebaseEvent('Button_navigate_back');
-                                  context.safePop();
+                                  logFirebaseEvent('Button_bottom_sheet');
+                                  Navigator.pop(context);
                                   logFirebaseEvent('Button_navigate_to');
 
                                   context.pushNamed('Channels');

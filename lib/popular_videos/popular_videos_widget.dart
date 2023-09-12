@@ -3,6 +3,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -16,15 +17,16 @@ export 'popular_videos_model.dart';
 class PopularVideosWidget extends StatefulWidget {
   const PopularVideosWidget({
     Key? key,
-    this.data,
-    this.videoTitleParam,
-    String? channelTitle,
-  })  : this.channelTitle = channelTitle ?? 'channelTitle',
-        super(key: key);
+    this.title,
+    this.channelTitle,
+    this.videoId,
+    this.standardThumbnail,
+  }) : super(key: key);
 
-  final String? data;
-  final dynamic videoTitleParam;
-  final String channelTitle;
+  final String? title;
+  final String? channelTitle;
+  final String? videoId;
+  final String? standardThumbnail;
 
   @override
   _PopularVideosWidgetState createState() => _PopularVideosWidgetState();
@@ -114,35 +116,65 @@ class _PopularVideosWidgetState extends State<PopularVideosWidget>
                   automaticallyImplyLeading: false,
                   actions: [],
                   flexibleSpace: FlexibleSpaceBar(
-                    title: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                        child: Text(
-                          'POPULAR',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
-                              .headlineMedium
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .headlineMediumFamily,
-                                color: Colors.white,
-                                fontSize: 42.0,
-                                letterSpacing: 3.0,
-                                fontWeight: FontWeight.w900,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .headlineMediumFamily),
-                              ),
+                    title: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(0.00, 0.00),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 0.0),
+                            child: Text(
+                              'POPULAR',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .headlineMedium
+                                  .override(
+                                    fontFamily: FlutterFlowTheme.of(context)
+                                        .headlineMediumFamily,
+                                    color: Colors.white,
+                                    fontSize: 42.0,
+                                    letterSpacing: 3.0,
+                                    fontWeight: FontWeight.w900,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey(
+                                            FlutterFlowTheme.of(context)
+                                                .headlineMediumFamily),
+                                  ),
+                            ),
+                          ),
                         ),
-                      ),
+                        Align(
+                          alignment: AlignmentDirectional(0.00, 0.00),
+                          child: Text(
+                            'Our favorite videos',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context)
+                                .headlineMedium
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .headlineMediumFamily,
+                                  color: Colors.white,
+                                  fontSize: 22.0,
+                                  letterSpacing: 1.0,
+                                  fontWeight: FontWeight.w600,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .headlineMediumFamily),
+                                ),
+                          ),
+                        ),
+                      ],
                     ),
-                    background: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(
-                        'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/channel-lab-v4-12jyvp/assets/v0rcxjiiepti/aaron5000_backyard_science_inspired_by_Yanjun_Cheng_style_rhad_a9601dc2-06de-43e3-be9f-b31d3ddc99ca.png',
-                        fit: BoxFit.cover,
+                    background: Opacity(
+                      opacity: 0.7,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network(
+                          'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/channel-lab-v4-12jyvp/assets/v0rcxjiiepti/aaron5000_backyard_science_inspired_by_Yanjun_Cheng_style_rhad_a9601dc2-06de-43e3-be9f-b31d3ddc99ca.png',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     centerTitle: true,
@@ -179,7 +211,8 @@ class _PopularVideosWidgetState extends State<PopularVideosWidget>
                                   width: double.infinity,
                                   decoration: BoxDecoration(),
                                   child: Align(
-                                    alignment: AlignmentDirectional(-0.2, 0.0),
+                                    alignment:
+                                        AlignmentDirectional(-0.20, 0.00),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 0.0),
@@ -224,14 +257,14 @@ class _PopularVideosWidgetState extends State<PopularVideosWidget>
                                                         'Image_navigate_to');
 
                                                     context.pushNamed(
-                                                      'SingleVideo',
+                                                      'SingleVideoPopular',
                                                       queryParameters: {
-                                                        'videoId':
+                                                        'standardThumbnail':
                                                             serializeParam(
                                                           getJsonField(
                                                             allCuratedVideosListVariableItem,
-                                                            r'''$.videoId''',
-                                                          ).toString(),
+                                                            r'''$.standardThumbnail''',
+                                                          ),
                                                           ParamType.String,
                                                         ),
                                                         'title': serializeParam(
@@ -241,43 +274,21 @@ class _PopularVideosWidgetState extends State<PopularVideosWidget>
                                                           ).toString(),
                                                           ParamType.String,
                                                         ),
-                                                        'channelThumbnail':
+                                                        'videoId':
                                                             serializeParam(
                                                           getJsonField(
                                                             allCuratedVideosListVariableItem,
-                                                            r'''$.channelInfo.channelThumbnail''',
-                                                          ),
+                                                            r'''$.videoId''',
+                                                          ).toString(),
                                                           ParamType.String,
                                                         ),
                                                         'channelTitle':
                                                             serializeParam(
                                                           getJsonField(
                                                             allCuratedVideosListVariableItem,
-                                                            r'''$.channelInfo.channelTitle''',
+                                                            r'''$.channelTitle''',
                                                           ).toString(),
                                                           ParamType.String,
-                                                        ),
-                                                        'channelId':
-                                                            serializeParam(
-                                                          getJsonField(
-                                                            allCuratedVideosListVariableItem,
-                                                            r'''$.channelInfo.channelId''',
-                                                          ).toString(),
-                                                          ParamType.String,
-                                                        ),
-                                                        'channelBanner':
-                                                            serializeParam(
-                                                          getJsonField(
-                                                            allCuratedVideosListVariableItem,
-                                                            r'''$.channelInfo.channelBanner''',
-                                                          ),
-                                                          ParamType.String,
-                                                        ),
-                                                        'allVideos':
-                                                            serializeParam(
-                                                          allCuratedVideosListVariableItem,
-                                                          ParamType.JSON,
-                                                          true,
                                                         ),
                                                       }.withoutNulls,
                                                       extra: <String, dynamic>{
@@ -304,7 +315,8 @@ class _PopularVideosWidgetState extends State<PopularVideosWidget>
                                                                   context)
                                                               .width *
                                                           1.0,
-                                                      fit: BoxFit.contain,
+                                                      height: 220.0,
+                                                      fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                 ),
@@ -339,122 +351,6 @@ class _PopularVideosWidgetState extends State<PopularVideosWidget>
                                                                           context)
                                                                       .bodyLargeFamily),
                                                         ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 8.0),
-                                                  child: InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      logFirebaseEvent(
-                                                          'POPULAR_VIDEOS_PAGE_Row_2ql2ypll_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'Row_navigate_to');
-
-                                                      context.pushNamed(
-                                                        'SingleChannel',
-                                                        queryParameters: {
-                                                          'channelThumbnail':
-                                                              serializeParam(
-                                                            getJsonField(
-                                                              allCuratedVideosListVariableItem,
-                                                              r'''$.channelInfo.channelThumbnail''',
-                                                            ),
-                                                            ParamType.String,
-                                                          ),
-                                                          'channelId':
-                                                              serializeParam(
-                                                            getJsonField(
-                                                              allCuratedVideosListVariableItem,
-                                                              r'''$.channelInfo.channelId''',
-                                                            ).toString(),
-                                                            ParamType.String,
-                                                          ),
-                                                          'channelTitle':
-                                                              serializeParam(
-                                                            getJsonField(
-                                                              allCuratedVideosListVariableItem,
-                                                              r'''$.channelInfo.channelTitle''',
-                                                            ).toString(),
-                                                            ParamType.String,
-                                                          ),
-                                                          'channelBanner':
-                                                              serializeParam(
-                                                            getJsonField(
-                                                              allCuratedVideosListVariableItem,
-                                                              r'''$.channelInfo.channelBanner''',
-                                                            ),
-                                                            ParamType.String,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
-                                                    },
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      8.0,
-                                                                      0.0),
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12.0),
-                                                            child:
-                                                                Image.network(
-                                                              getJsonField(
-                                                                allCuratedVideosListVariableItem,
-                                                                r'''$.channelInfo.channelThumbnail''',
-                                                              ),
-                                                              width: 40.0,
-                                                              height: 40.0,
-                                                              fit: BoxFit
-                                                                  .contain,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          getJsonField(
-                                                            allCuratedVideosListVariableItem,
-                                                            r'''$.channelInfo.channelTitle''',
-                                                          ).toString(),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                        ),
-                                                      ],
-                                                    ),
                                                   ),
                                                 ),
                                               ],

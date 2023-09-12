@@ -57,7 +57,7 @@ class _ChannelBannerWidgetState extends State<ChannelBannerWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Align(
-              alignment: AlignmentDirectional(-0.95, 0.0),
+              alignment: AlignmentDirectional(-0.95, 0.00),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 2.0),
                 child: Text(

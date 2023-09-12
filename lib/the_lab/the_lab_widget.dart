@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -66,7 +65,7 @@ class _TheLabWidgetState extends State<TheLabWidget>
       vsync: this,
       length: 3,
       initialIndex: 1,
-    );
+    )..addListener(() => setState(() {}));
   }
 
   @override
@@ -186,7 +185,6 @@ class _TheLabWidgetState extends State<TheLabWidget>
                             ),
                           ],
                           controller: _model.tabBarController,
-                          onTap: (value) => setState(() {}),
                         ),
                       ),
                       Expanded(
@@ -368,7 +366,7 @@ class _TheLabWidgetState extends State<TheLabWidget>
                                                         Align(
                                                           alignment:
                                                               AlignmentDirectional(
-                                                                  -1.0, 0.0),
+                                                                  -1.00, 0.00),
                                                           child: Padding(
                                                             padding:
                                                                 EdgeInsetsDirectional
@@ -398,7 +396,7 @@ class _TheLabWidgetState extends State<TheLabWidget>
                                                         Align(
                                                           alignment:
                                                               AlignmentDirectional(
-                                                                  -1.0, 0.0),
+                                                                  -1.00, 0.00),
                                                           child: Padding(
                                                             padding:
                                                                 EdgeInsetsDirectional
@@ -981,52 +979,20 @@ class _TheLabWidgetState extends State<TheLabWidget>
                                           logFirebaseEvent(
                                               'THE_LAB_PAGE_TEST_SIGN_UP_BTN_ON_TAP');
                                           logFirebaseEvent(
-                                              'Button_revenue_cat');
-                                          final isEntitled = await revenue_cat
-                                              .isEntitled('LabPremium');
-                                          if (isEntitled == null) {
-                                            return;
-                                          } else if (!isEntitled) {
-                                            await revenue_cat.loadOfferings();
-                                          }
-
-                                          if (isEntitled) {
-                                            logFirebaseEvent(
-                                                'Button_bottom_sheet');
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: PayWallWidget(),
-                                                );
-                                              },
-                                            ).then((value) => setState(() {}));
-                                          } else {
-                                            logFirebaseEvent(
-                                                'Button_bottom_sheet');
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: PayWallWidget(),
-                                                );
-                                              },
-                                            ).then((value) => setState(() {}));
-                                          }
+                                              'Button_bottom_sheet');
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            context: context,
+                                            builder: (context) {
+                                              return Padding(
+                                                padding:
+                                                    MediaQuery.viewInsetsOf(
+                                                        context),
+                                                child: PayWallWidget(),
+                                              );
+                                            },
+                                          ).then((value) => setState(() {}));
                                         },
                                         text: 'Test Sign Up',
                                         icon: Icon(
@@ -1203,7 +1169,8 @@ class _TheLabWidgetState extends State<TheLabWidget>
                                       ),
                                     ),
                                     Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 20.0),
@@ -1304,7 +1271,8 @@ class _TheLabWidgetState extends State<TheLabWidget>
                                       ),
                                     ),
                                     Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 20.0),

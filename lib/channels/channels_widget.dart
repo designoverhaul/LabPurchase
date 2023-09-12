@@ -1,9 +1,14 @@
+import '/auth/base_auth_user_provider.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/backend/backend.dart';
+import '/components/pay_wall_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -40,6 +45,37 @@ class _ChannelsWidgetState extends State<ChannelsWidget> {
       logFirebaseEvent('CHANNELS_PAGE_Channels_ON_INIT_STATE');
       logFirebaseEvent('Channels_custom_action');
       await actions.lockOrientation();
+      if (loggedIn) {
+        logFirebaseEvent('Channels_backend_call');
+        _model.isSubscribedVariable = await IsUserSubscribedCall.call(
+          uid: currentUserEmail,
+        );
+        if ((_model.isSubscribedVariable?.succeeded ?? true)) {
+          if (getJsonField(
+                (_model.isSubscribedVariable?.jsonBody ?? ''),
+                r'''$.subscriber.entitlements.LabPremium''',
+              ) !=
+              null) {
+            logFirebaseEvent('Channels_backend_call');
+
+            await currentUserReference!.update(createUsersRecordData(
+              isSubscribed: true,
+            ));
+          } else {
+            logFirebaseEvent('Channels_backend_call');
+
+            await currentUserReference!.update(createUsersRecordData(
+              isSubscribed: false,
+            ));
+          }
+
+          return;
+        } else {
+          return;
+        }
+      } else {
+        return;
+      }
     });
   }
 
@@ -94,7 +130,7 @@ class _ChannelsWidgetState extends State<ChannelsWidget> {
                   actions: [],
                   flexibleSpace: FlexibleSpaceBar(
                     title: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.00, 0.00),
                       child: Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
@@ -164,21 +200,98 @@ class _ChannelsWidgetState extends State<ChannelsWidget> {
                                         maxWidth: 900.0,
                                       ),
                                       decoration: BoxDecoration(),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          logFirebaseEvent(
+                                              'CHANNELS_PAGE_Column_zte672ro_ON_TAP');
+                                          if (getJsonField(
+                                                allChannelsListViewItem,
+                                                r'''$.isPremium''',
+                                              ) !=
+                                              null) {
+                                            if (getJsonField(
+                                              allChannelsListViewItem,
+                                              r'''$.isPremium''',
+                                            )) {
+                                              if (valueOrDefault<bool>(
+                                                  currentUserDocument
+                                                      ?.isSubscribed,
+                                                  false)) {
+                                                logFirebaseEvent(
+                                                    'Column_navigate_to');
+
+                                                context.pushNamed(
+                                                  'SingleChannel',
+                                                  queryParameters: {
+                                                    'channelThumbnail':
+                                                        serializeParam(
+                                                      getJsonField(
+                                                        allChannelsListViewItem,
+                                                        r'''$.channelThumbnail''',
+                                                      ),
+                                                      ParamType.String,
+                                                    ),
+                                                    'channelId': serializeParam(
+                                                      getJsonField(
+                                                        allChannelsListViewItem,
+                                                        r'''$.channelId''',
+                                                      ).toString(),
+                                                      ParamType.String,
+                                                    ),
+                                                    'channelTitle':
+                                                        serializeParam(
+                                                      getJsonField(
+                                                        allChannelsListViewItem,
+                                                        r'''$.channelTitle''',
+                                                      ).toString(),
+                                                      ParamType.String,
+                                                    ),
+                                                    'channelBanner':
+                                                        serializeParam(
+                                                      getJsonField(
+                                                        allChannelsListViewItem,
+                                                        r'''$.channelBanner''',
+                                                      ),
+                                                      ParamType.String,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
+
+                                                return;
+                                              } else {
+                                                logFirebaseEvent(
+                                                    'Column_bottom_sheet');
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return GestureDetector(
+                                                      onTap: () => FocusScope
+                                                              .of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode),
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child: PayWallWidget(),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then(
+                                                    (value) => setState(() {}));
+                                              }
+
+                                              return;
+                                            } else {
                                               logFirebaseEvent(
-                                                  'CHANNELS_PAGE_Image_qhrm8bpp_ON_TAP');
-                                              logFirebaseEvent(
-                                                  'Image_navigate_to');
+                                                  'Column_navigate_to');
 
                                               context.pushNamed(
                                                 'SingleChannel',
@@ -215,18 +328,58 @@ class _ChannelsWidgetState extends State<ChannelsWidget> {
                                                     ParamType.String,
                                                   ),
                                                 }.withoutNulls,
-                                                extra: <String, dynamic>{
-                                                  kTransitionInfoKey:
-                                                      TransitionInfo(
-                                                    hasTransition: true,
-                                                    transitionType:
-                                                        PageTransitionType
-                                                            .rightToLeft,
-                                                  ),
-                                                },
                                               );
-                                            },
-                                            child: Hero(
+
+                                              return;
+                                            }
+                                          } else {
+                                            logFirebaseEvent(
+                                                'Column_navigate_to');
+
+                                            context.pushNamed(
+                                              'SingleChannel',
+                                              queryParameters: {
+                                                'channelThumbnail':
+                                                    serializeParam(
+                                                  getJsonField(
+                                                    allChannelsListViewItem,
+                                                    r'''$.channelThumbnail''',
+                                                  ),
+                                                  ParamType.String,
+                                                ),
+                                                'channelId': serializeParam(
+                                                  getJsonField(
+                                                    allChannelsListViewItem,
+                                                    r'''$.channelId''',
+                                                  ).toString(),
+                                                  ParamType.String,
+                                                ),
+                                                'channelTitle': serializeParam(
+                                                  getJsonField(
+                                                    allChannelsListViewItem,
+                                                    r'''$.channelTitle''',
+                                                  ).toString(),
+                                                  ParamType.String,
+                                                ),
+                                                'channelBanner': serializeParam(
+                                                  getJsonField(
+                                                    allChannelsListViewItem,
+                                                    r'''$.channelBanner''',
+                                                  ),
+                                                  ParamType.String,
+                                                ),
+                                              }.withoutNulls,
+                                            );
+
+                                            return;
+                                          }
+                                        },
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Hero(
                                               tag: valueOrDefault<String>(
                                                 getJsonField(
                                                   allChannelsListViewItem,
@@ -256,63 +409,75 @@ class _ChannelsWidgetState extends State<ChannelsWidget> {
                                                 fit: BoxFit.fill,
                                               ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 0.0, 20.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  valueOrDefault<String>(
-                                                    getJsonField(
-                                                      allChannelsListViewItem,
-                                                      r'''$.channelTitle''',
-                                                    ).toString(),
-                                                    'defaultTitle',
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      20.0, 0.0, 20.0, 0.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    valueOrDefault<String>(
+                                                      getJsonField(
+                                                        allChannelsListViewItem,
+                                                        r'''$.channelTitle''',
+                                                      ).toString(),
+                                                      'defaultTitle',
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .titleMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMediumFamily),
+                                                        ),
                                                   ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleMediumFamily,
+                                                  if ((getJsonField(
+                                                            allChannelsListViewItem,
+                                                            r'''$.isPremium''',
+                                                          ) !=
+                                                          null) &&
+                                                      valueOrDefault<bool>(
+                                                        getJsonField(
+                                                          allChannelsListViewItem,
+                                                          r'''$.isPremium''',
+                                                        ),
+                                                        true,
+                                                      ) &&
+                                                      !valueOrDefault<bool>(
+                                                          currentUserDocument
+                                                              ?.isSubscribed,
+                                                          false))
+                                                    AuthUserStreamWidget(
+                                                      builder: (context) =>
+                                                          Icon(
+                                                        Icons.lock_outline,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryText,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMediumFamily),
+                                                                .secondaryText,
+                                                        size: 24.0,
                                                       ),
-                                                ),
-                                                if (!valueOrDefault<bool>(
-                                                  getJsonField(
-                                                    allChannelsListViewItem,
-                                                    r'''$.isPremium''',
-                                                  ),
-                                                  false,
-                                                ))
-                                                  Icon(
-                                                    Icons.lock_outline,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                    size: 24.0,
-                                                  ),
-                                              ],
+                                                    ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

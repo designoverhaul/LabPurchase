@@ -11,7 +11,7 @@ class PayWallModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [RevenueCat - Purchase] action in Button widget.
-  bool? didPurchaseMonth;
+  bool? didPurchase;
   // Stores action output result for [RevenueCat - Purchase] action in Button widget.
   bool? didPurchaseYear;
 
